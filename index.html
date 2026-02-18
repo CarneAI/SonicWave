@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SonicWave - Plataforma Musical</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Fondo Animado -->
+    <div class="bg-animation"></div>
+
+    <!-- Contenedor de Autenticación -->
+    <div class="auth-container" id="authContainer">
+        <div class="auth-box" id="authBox">
+            <div class="logo">
+                <h1>🎵 SonicWave</h1>
+                <p>La plataforma para artistas independientes</p>
+            </div>
+            
+            <form id="authForm">
+                <div id="registerFields">
+                    <div class="form-group">
+                        <label>Nombre completo</label>
+                        <input type="text" id="fullName" placeholder="Tu nombre" maxlength="50">
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre de banda/artista</label>
+                        <input type="text" id="bandName" placeholder="Nombre artístico" maxlength="25">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Usuario</label>
+                    <input type="text" id="username" placeholder="usuario123" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="password" placeholder="••••••••" required>
+                </div>
+                
+                <button type="submit" class="btn" id="authBtn">Iniciar Sesión</button>
+                <button type="button" class="btn btn-secondary" id="toggleAuth">Crear cuenta</button>
+            </form>
+            
+            <div class="auth-footer">
+                <p id="authFooterText">¿No tienes cuenta? <a>Regístrate</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor Principal de la App -->
+    <div class="app-container" id="appContainer">
+        
+        <!-- Sidebar Navegación -->
+        <aside class="sidebar" id="sidebar">
+            <div class="nav-brand">
+                <h2>🎵 SonicWave</h2>
+            </div>
+            
+            <nav>
+                <div class="nav-item active" data-section="discover">
+                    <span>🌐</span>
+                    <span>Descubrir</span>
+                </div>
+                <div class="nav-item" data-section="profile">
+                    <span>👤</span>
+                    <span>Mi Perfil</span>
+                </div>
+                <div class="nav-item" data-section="library">
+                    <span>📚</span>
+                    <span>Mi Biblioteca</span>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Contenido Principal -->
+        <main class="main-content">
+            
+            <!-- Header -->
+            <header class="header">
+                <button class="mobile-menu-btn">☰</button>
+                <h1 id="pageTitle">Descubrir</h1>
+                <div class="user-menu">
+                    <img src="" alt="Avatar" class="avatar" id="headerAvatar">
+                    <button class="logout-btn">Cerrar sesión</button>
+                </div>
+            </header>
+
+            <!-- Sección Descubrir (Feed Global) -->
+            <section class="section active" id="discoverSection">
+                <div class="section-header">
+                    <h2>Feed Global</h2>
+                    <span class="live-indicator">
+                        <span class="live-dot"></span>
+                        EN VIVO
+                    </span>
+                </div>
+                <div class="feed-list" id="feedList"></div>
+            </section>
+
+            <!-- Sección Perfil -->
+            <section class="section" id="profileSection">
+                <div class="profile-header">
+                    <div class="profile-cover"></div>
+                    <div class="profile-info">
+                        <div class="profile-avatar-container">
+                            <img src="" alt="Profile" class="profile-avatar" id="profileAvatar">
+                            <button class="change-avatar-btn">📷</button>
+                            <input type="file" id="avatarInput" accept="image/*">
+                        </div>
+                        <div class="profile-details">
+                            <h2 id="profileBandName">Nombre de Banda</h2>
+                            <p id="profileUsername">@username</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-number" id="statAlbums">0</span>
+                        <div class="stat-label">Álbumes</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="statSongs">0</span>
+                        <div class="stat-label">Canciones</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number" id="statLikes">0</span>
+                        <div class="stat-label">Me gusta</div>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle">Mis Álbumes</h3>
+                <div class="albums-grid" id="myAlbumsGrid"></div>
+            </section>
+
+            <!-- Sección Biblioteca -->
+            <section class="section" id="librarySection">
+                <h2 class="section-title">Mi Biblioteca</h2>
+                <div class="song-list" id="songList"></div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Botón Flotante de Acción -->
+    <button class="fab" id="fab">+</button>
+
+    <!-- Modal de Subida -->
+    <div class="modal-overlay" id="uploadModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Subir Contenido</h2>
+                <button class="close-btn">×</button>
+            </div>
+            
+            <div class="upload-type-selector">
+                <button class="upload-type-btn active" data-type="song">
+                    <h3>🎵 Canción</h3>
+                    <p>Subir single</p>
+                </button>
+                <button class="upload-type-btn" data-type="album">
+                    <h3>💿 Álbum</h3>
+                    <p>Crear nuevo álbum</p>
+                </button>
+            </div>
+
+            <form id="uploadForm">
+                <div class="form-group">
+                    <label>Título</label>
+                    <input type="text" id="uploadTitle" placeholder="Nombre de la canción o álbum" required>
+                </div>
+
+                <div id="albumFields">
+                    <div class="form-group">
+                        <label>Año</label>
+                        <input type="number" id="albumYear" placeholder="2024" min="1900" max="2030">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Portada (Imagen)</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="coverInput" accept="image/*">
+                        <label for="coverInput" class="file-input-label" id="coverLabel">
+                            Arrastra o haz clic para seleccionar imagen
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" id="audioField">
+                    <label>Archivo de audio</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="audioInput" accept="audio/*">
+                        <label for="audioInput" class="file-input-label">
+                            Seleccionar MP3, WAV o FLAC
+                        </label>
+                    </div>
+                </div>
+
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+                <button type="submit" class="btn">Publicar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Contenedor de Notificaciones -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
